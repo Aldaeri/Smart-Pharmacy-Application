@@ -1,0 +1,100 @@
+Flutter crash report.
+Please report a bug at https://github.com/flutter/flutter/issues.
+
+## command
+
+flutter --no-color pub get
+
+## exception
+
+FormatException: FormatException: Unexpected end of input (at character 1)
+
+^
+
+
+```
+#0      _ChunkedJsonParser.fail (dart:convert-patch/convert_patch.dart:1463:5)
+#1      _ChunkedJsonParser.close (dart:convert-patch/convert_patch.dart:497:7)
+#2      _parseJson (dart:convert-patch/convert_patch.dart:36:10)
+#3      JsonDecoder.convert (dart:convert/json.dart:641:36)
+#4      JsonCodec.decode (dart:convert/json.dart:223:41)
+#5      createPluginSymlinks (package:flutter_tools/src/flutter_plugins.dart:1021:14)
+#6      refreshPluginsList (package:flutter_tools/src/flutter_plugins.dart:1167:5)
+<asynchronous suspension>
+#7      FlutterProject.ensureReadyForPlatformSpecificTooling (package:flutter_tools/src/project.dart:368:5)
+<asynchronous suspension>
+#8      PackagesGetCommand.runCommand (package:flutter_tools/src/commands/packages.dart:388:7)
+<asynchronous suspension>
+#9      FlutterCommand.run.<anonymous closure> (package:flutter_tools/src/runner/flutter_command.dart:1558:27)
+<asynchronous suspension>
+#10     AppContext.run.<anonymous closure> (package:flutter_tools/src/base/context.dart:154:19)
+<asynchronous suspension>
+#11     CommandRunner.runCommand (package:args/command_runner.dart:212:13)
+<asynchronous suspension>
+#12     FlutterCommandRunner.runCommand.<anonymous closure> (package:flutter_tools/src/runner/flutter_command_runner.dart:496:9)
+<asynchronous suspension>
+#13     AppContext.run.<anonymous closure> (package:flutter_tools/src/base/context.dart:154:19)
+<asynchronous suspension>
+#14     FlutterCommandRunner.runCommand (package:flutter_tools/src/runner/flutter_command_runner.dart:431:5)
+<asynchronous suspension>
+#15     run.<anonymous closure>.<anonymous closure> (package:flutter_tools/runner.dart:98:11)
+<asynchronous suspension>
+#16     AppContext.run.<anonymous closure> (package:flutter_tools/src/base/context.dart:154:19)
+<asynchronous suspension>
+#17     main (package:flutter_tools/executable.dart:99:3)
+<asynchronous suspension>
+```
+
+## flutter doctor
+
+```
+[✓] Flutter (Channel stable, 3.29.0, on Microsoft Windows [Version 10.0.22000.194], locale en-US) [7.3s]
+    • Flutter version 3.29.0 on channel stable at C:\flutter
+    • Upstream repository https://github.com/flutter/flutter.git
+    • Framework revision 35c388afb5 (3 months ago), 2025-02-10 12:48:41 -0800
+    • Engine revision f73bfc4522
+    • Dart version 3.7.0
+    • DevTools version 2.42.2
+
+[✓] Windows Version (11 Pro Education 64-bit, 21H2, 2009) [34.9s]
+
+[✓] Android toolchain - develop for Android devices (Android SDK version 35.0.0) [83.3s]
+    • Android SDK at D:\Android\Sdk
+    • Platform android-35, build-tools 35.0.0
+    • Java binary at: C:\Program Files\Android\Android Studio\jbr\bin\java
+      This is the JDK bundled with the latest Android Studio installation on this machine.
+      To manually set the JDK path, use: `flutter config --jdk-dir="path/to/jdk"`.
+    • Java version OpenJDK Runtime Environment (build 17.0.10+0--11609105)
+    • All Android licenses accepted.
+
+[✓] Chrome - develop for the web [4.4s]
+    • Chrome at C:\Program Files\Google\Chrome\Application\chrome.exe
+
+[✗] Visual Studio - develop Windows apps [4.4s]
+    ✗ Visual Studio not installed; this is necessary to develop Windows apps.
+      Download at https://visualstudio.microsoft.com/downloads/.
+      Please install the "Desktop development with C++" workload, including all of its default components
+
+[✓] Android Studio (version 2024.1) [42ms]
+    • Android Studio at C:\Program Files\Android\Android Studio
+    • Flutter plugin can be installed from:
+      🔨 https://plugins.jetbrains.com/plugin/9212-flutter
+    • Dart plugin can be installed from:
+      🔨 https://plugins.jetbrains.com/plugin/6351-dart
+    • Java version OpenJDK Runtime Environment (build 17.0.10+0--11609105)
+
+[✓] VS Code (version 1.100.2) [37ms]
+    • VS Code at C:\Users\Aldaeri\AppData\Local\Programs\Microsoft VS Code
+    • Flutter extension version 3.110.0
+
+[✓] Connected device (4 available) [4.2s]
+    • JKM LX1 (mobile)  • DEFNW18C11001251 • android-arm64  • Android 9 (API 28)
+    • Windows (desktop) • windows          • windows-x64    • Microsoft Windows [Version 10.0.22000.194]
+    • Chrome (web)      • chrome           • web-javascript • Google Chrome 136.0.7103.114
+    • Edge (web)        • edge             • web-javascript • Microsoft Edge 136.0.3240.64
+
+[✓] Network resources [4.4s]
+    • All expected network resources are available.
+
+! Doctor found issues in 1 category.
+```

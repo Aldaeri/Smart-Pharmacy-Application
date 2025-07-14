@@ -1,0 +1,15 @@
+[debug] [2025-05-24T00:19:22.845Z] ----------------------------------------------------------------------
+[debug] [2025-05-24T00:19:22.855Z] Command:       C:\Users\Aldaeri\firebase-tools-instant-win.exe C:\Users\Aldaeri\.cache\firebase\tools\lib\node_modules\firebase-tools\lib\bin\firebase deploy --only firestore:indexes
+[debug] [2025-05-24T00:19:22.857Z] CLI Version:   13.19.0
+[debug] [2025-05-24T00:19:22.858Z] Platform:      win32
+[debug] [2025-05-24T00:19:22.858Z] Node Version:  v18.5.0
+[debug] [2025-05-24T00:19:22.860Z] Time:          Sat May 24 2025 03:19:22 GMT+0300 (Arabian Standard Time)
+[debug] [2025-05-24T00:19:22.862Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-05-24T00:19:55.812Z] Object "" in "firebase.json" has unknown property: {"additionalProperty":"flutter"}
+[debug] [2025-05-24T00:20:12.894Z] Error: Timed out.
+    at Timeout._onTimeout (C:\Users\Aldaeri\.cache\firebase\tools\lib\node_modules\firebase-tools\lib\utils.js:268:49)
+    at listOnTimeout (node:internal/timers:564:17)
+    at process.processTimers (node:internal/timers:507:7)
+[error] 
+[error] Error: An unexpected error has occurred.
