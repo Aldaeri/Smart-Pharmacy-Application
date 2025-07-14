@@ -1,0 +1,523 @@
+# الكود الكامل لصفحات تطبيق الصيدلية الذكية المتبقية
+
+سأقدم لك الكود المعدل والمحسن لجميع الصفحات المتبقية مع الحفاظ على نفس هيكل المشروع السابق:
+
+## 1. صفحة سلة التسوق (cart.dart)
+
+```dart
+import 'package:flutter/material.dart';
+import '../constants/colors.dart';
+import '../constants/styles.dart';
+import '../widgets/bottom_nav_bar.dart';
+import '../widgets/custom_button.dart';
+
+class CartScreen extends StatelessWidget {
+  const CartScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      appBar: AppBar(
+        title: Text('السلة', style: AppTextStyles.header),
+        centerTitle: true,
+        backgroundColor: AppColors.background,
+        elevation: 0,
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.all(20),
+              children: [
+                _buildCartItem(
+                  'ون تو ثري اقراص',
+                  '900 ر.ي',
+                  'https://via.placeholder.com/80',
+                  quantity: 1,
+                ),
+                const SizedBox(height: 20),
+                _buildCartItem(
+                  'ارجيفيت كلاسيك متعدد الفينامينات',
+                  '3,500 ر.ي',
+                  'https://via.placeholder.com/80',
+                  quantity: 1,
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.1),
+                  spreadRadius: 2,
+                  blurRadius: 10,
+                  offset: const Offset(0, -2),
+              ],
+            ),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('الإجمالي', style: AppTextStyles.bodyMedium),
+                    Text('4,400 ر.ي', style: AppTextStyles.sectionTitle),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                CustomButton(
+                  text: 'إتمام الشراء',
+                  onPressed: () {},
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+      bottomNavigationBar: const CustomBottomNavBar(selectedIndex: 0),
+    );
+  }
+
+  Widget _buildCartItem(String name, String price, String imageUrl, {int quantity = 1}) {
+    return Container(
+      padding: const EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.1),
+            spreadRadius: 1,
+            blurRadius: 5,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          // صورة المنتج
+          Container(
+            width: 80,
+            height: 80,
+            decoration: BoxDecoration(
+              color: AppColors.secondary,
+              borderRadius: BorderRadius.circular(15),
+              image: DecorationImage(
+                image: NetworkImage(imageUrl),
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
+          const SizedBox(width: 15),
+          
+          // تفاصيل المنتج
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(name, style: AppTextStyles.productTitle),
+                const SizedBox(height: 5),
+                Text(price, style: AppTextStyles.price),
+              ],
+            ),
+          ),
+          
+          // عداد الكمية
+          Container(
+            decoration: BoxDecoration(
+              color: AppColors.secondary,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.remove, size: 18),
+                  onPressed: () {},
+                ),
+                Text('$quantity', style: AppTextStyles.bodyMedium),
+                IconButton(
+                  icon: const Icon(Icons.add, size: 18),
+                  onPressed: () {},
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+```
+
+## 2. صفحة نسيان كلمة المرور (forget_password.dart)
+
+```dart
+import 'package:flutter/material.dart';
+import '../constants/colors.dart';
+import '../constants/styles.dart';
+import '../widgets/custom_button.dart';
+import '../widgets/custom_text_field.dart';
+
+class ForgetPasswordScreen extends StatelessWidget {
+  const ForgetPasswordScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
+        ),
+        backgroundColor: AppColors.background,
+        elevation: 0,
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Text(
+              'نسيت كلمة المرور',
+              style: AppTextStyles.header.copyWith(color: AppColors.textDark),
+              textAlign: TextAlign.right,
+            ),
+            const SizedBox(height: 20),
+            Text(
+              'لا تقلق، أدخل بريدك الإلكتروني\nوسنرسل لك رابط إعادة تعيين كلمة المرور.',
+              style: AppTextStyles.bodySmall,
+              textAlign: TextAlign.right,
+            ),
+            const SizedBox(height: 40),
+            
+            // حقل البريد الإلكتروني
+            const CustomTextField(
+              hintText: 'البريد الإلكتروني',
+              prefixIcon: Icons.email,
+            ),
+            const SizedBox(height: 30),
+            
+            // زر الإرسال
+            CustomButton(
+              text: 'ارسال',
+              onPressed: () {
+                // إرسال رابط إعادة التعيين
+                Navigator.pushNamed(context, '/email_sent');
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+```
+
+## 3. صفحة تسجيل الدخول (sign_in.dart)
+
+```dart
+import 'package:flutter/material.dart';
+import '../constants/colors.dart';
+import '../constants/styles.dart';
+import '../widgets/custom_button.dart';
+import '../widgets/custom_text_field.dart';
+
+class SignInScreen extends StatelessWidget {
+  const SignInScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          children: [
+            const SizedBox(height: 40),
+            Center(
+              child: CircleAvatar(
+                radius: 64,
+                backgroundColor: AppColors.secondary,
+                backgroundImage: NetworkImage('https://via.placeholder.com/128'),
+              ),
+            ),
+            const SizedBox(height: 30),
+            Text(
+              'مرحبًا،',
+              style: AppTextStyles.header.copyWith(color: AppColors.textDark),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              'اكتشف الأدوية والفيتامينات والمزيد.',
+              style: AppTextStyles.bodySmall,
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 40),
+            
+            // حقول الإدخال
+            const CustomTextField(
+              hintText: 'البريد الإلكتروني',
+              prefixIcon: Icons.email,
+            ),
+            const SizedBox(height: 20),
+            const CustomTextField(
+              hintText: 'كلمة المرور',
+              prefixIcon: Icons.lock,
+              isPassword: true,
+            ),
+            const SizedBox(height: 10),
+            
+            // تذكرني ونسيت كلمة المرور
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextButton(
+                  onPressed: () {},
+                  child: Text('تذكرني', style: AppTextStyles.bodyMedium),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.pushNamed(context, '/forget_password'),
+                  child: Text(
+                    'هل نسيت كلمة المرور؟',
+                    style: AppTextStyles.bodySmall,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 30),
+            
+            // زر تسجيل الدخول
+            CustomButton(
+              text: 'تسجيل الدخول',
+              onPressed: () => Navigator.pushNamed(context, '/home'),
+            ),
+            const SizedBox(height: 20),
+            
+            // زر إنشاء حساب
+            OutlinedButton(
+              style: OutlinedButton.styleFrom(
+                minimumSize: const Size(342, 56),
+                side: BorderSide(color: AppColors.borderGray),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(13),
+                ),
+              ),
+              onPressed: () => Navigator.pushNamed(context, '/signup'),
+              child: Text(
+                'إنشاء حساب',
+                style: AppTextStyles.bodyMedium,
+              ),
+            ),
+            const SizedBox(height: 20),
+            
+            // تسجيل الدخول بالوسائل الاجتماعية
+            Row(
+              children: [
+                const Expanded(child: Divider()),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Text(
+                    'أو قم بتسجيل الدخول باستخدام',
+                    style: AppTextStyles.bodySmall,
+                  ),
+                ),
+                const Expanded(child: Divider()),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  icon: Image.network('https://via.placeholder.com/40'),
+                  onPressed: () {},
+                ),
+                const SizedBox(width: 20),
+                IconButton(
+                  icon: Image.network('https://via.placeholder.com/40'),
+                  onPressed: () {},
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+```
+
+## 4. صفحة التحقق من البريد الإلكتروني (verify_email.dart)
+
+```dart
+import 'package:flutter/material.dart';
+import '../constants/colors.dart';
+import '../constants/styles.dart';
+import '../widgets/custom_button.dart';
+
+class VerifyEmailScreen extends StatelessWidget {
+  const VerifyEmailScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.network(
+                'https://via.placeholder.com/256',
+                width: 256,
+                height: 256,
+              ),
+              const SizedBox(height: 30),
+              Text(
+                'تحقق من عنوان بريدك الإلكتروني',
+                style: AppTextStyles.header.copyWith(color: AppColors.textDark),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 10),
+              Text(
+                'example@gmail.com',
+                style: AppTextStyles.bodyLarge,
+              ),
+              const SizedBox(height: 20),
+              Text(
+                'تهانينا! حسابك في انتظارك,\nقم بالتحقق من وجود بريدك الإلكتروني لبدء التسوق والاستمتاع.',
+                style: AppTextStyles.bodySmall,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 50),
+              CustomButton(
+                text: 'المتابعة',
+                onPressed: () => Navigator.pushNamed(context, '/home'),
+              ),
+              const SizedBox(height: 20),
+              TextButton(
+                onPressed: () {},
+                child: Text(
+                  'إعادة إرسال البريد الإلكتروني',
+                  style: AppTextStyles.bodyMedium.copyWith(
+                    color: AppColors.primary,
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+```
+
+## 5. تعديل ملف routes.dart لإضافة الصفحات الجديدة
+
+```dart
+import 'package:flutter/material.dart';
+import 'screens/account_created.dart';
+import 'screens/cart.dart';
+import 'screens/email_sent.dart';
+import 'screens/favorite.dart';
+import 'screens/forget_password.dart';
+import 'screens/home.dart';
+import 'screens/profile.dart';
+import 'screens/reminder.dart';
+import 'screens/sign_in.dart';
+import 'screens/sign_up.dart';
+import 'screens/splash_screen.dart';
+import 'screens/verify_email.dart';
+import 'screens/welcome_back.dart';
+
+final Map<String, WidgetBuilder> appRoutes = {
+  '/splash': (context) => const SplashScreen(),
+  '/welcome': (context) => const WelcomeBackScreen(),
+  '/signin': (context) => const SignInScreen(),
+  '/signup': (context) => const SignUpScreen(),
+  '/forget_password': (context) => const ForgetPasswordScreen(),
+  '/verify_email': (context) => const VerifyEmailScreen(),
+  '/account_created': (context) => const AccountCreatedScreen(),
+  '/email_sent': (context) => const EmailSentScreen(),
+  '/home': (context) => const HomeScreen(),
+  '/cart': (context) => const CartScreen(),
+  '/favorite': (context) => const FavoriteScreen(),
+  '/profile': (context) => const ProfileScreen(),
+  '/reminder': (context) => const ReminderScreen(),
+};
+```
+
+## 6. إضافة مكونات جديدة مطلوبة
+
+### widgets/quantity_selector.dart
+
+```dart
+import 'package:flutter/material.dart';
+import '../constants/colors.dart';
+
+class QuantitySelector extends StatelessWidget {
+  final int quantity;
+  final VoidCallback onDecrement;
+  final VoidCallback onIncrement;
+
+  const QuantitySelector({
+    super.key,
+    required this.quantity,
+    required this.onDecrement,
+    required this.onIncrement,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.secondary,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          IconButton(
+            icon: const Icon(Icons.remove, size: 18),
+            onPressed: onDecrement,
+          ),
+          Text('$quantity', style: const TextStyle(fontSize: 16)),
+          IconButton(
+            icon: const Icon(Icons.add, size: 18),
+            onPressed: onIncrement,
+          ),
+        ],
+      ),
+    );
+  }
+}
+```
+
+## ملاحظات التطوير النهائية
+
+1. **تحسينات الأداء**:
+   - استخدام `ListView.builder` بدلاً من `ListView` للقوائم الطويلة
+   - تحميل الصور بشكل كسول باستخدام `cached_network_image`
+
+2. **إدارة الحالة**:
+   - يمكن إضافة `Provider` أو `Bloc` لإدارة حالة السلة والمنتجات
+
+3. **التفاعلات**:
+   - إضافة تأثيرات اللمس (`InkWell`) على جميع العناصر القابلة للنقر
+   - إضافة تحميل مؤقت عند الانتقال بين الصفحات
+
+4. **الاختبار**:
+   - إضافة اختبارات واجهة المستخدم للصفحات الرئيسية
+
+5. **التخصيص**:
+   - استبدال الصور المؤقتة بصور حقيقية
+   - إضافة تأثيرات حركية لتحسين تجربة المستخدم
+
+هذه الأكواد توفر نسخة كاملة ومحسنة من جميع صفحات تطبيق الصيدلية الذكية مع الحفاظ على التناسق في التصميم وسهولة الصيانة والتطوير المستقبلي.

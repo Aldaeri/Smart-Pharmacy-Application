@@ -1,0 +1,565 @@
+# أكواد باقي صفحات تطبيق الصيدلية الذكية
+
+سأقدم لك أكواد الصفحات المتبقية بشكل كامل مع الحفاظ على الهيكل الموحد الذي بدأناه:
+
+## 1. صفحة إعادة تعيين كلمة المرور (email_sent.dart)
+
+```dart
+import 'package:flutter/material.dart';
+import '../constants/colors.dart';
+import '../constants/styles.dart';
+import '../widgets/custom_button.dart';
+
+class EmailSentScreen extends StatelessWidget {
+  const EmailSentScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.network(
+                'https://via.placeholder.com/256',
+                width: 256,
+                height: 256,
+              ),
+              const SizedBox(height: 30),
+              Text(
+                'تم إرسال بريد إلكتروني\nلإعادة تعيين كلمة المرور',
+                style: AppTextStyles.header.copyWith(color: AppColors.textDark),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 20),
+              Text(
+                'example@gmail.com',
+                style: AppTextStyles.bodyLarge,
+              ),
+              const SizedBox(height: 20),
+              Text(
+                'أمان حسابك هو أولويتنا! لقد أرسلنا لك رابط آمن لتغيير كلمة المرور\nالخاصة بك بأمان والحفاظ على حسابك محمي.',
+                style: AppTextStyles.bodySmall,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 50),
+              CustomButton(
+                text: 'تم',
+                onPressed: () => Navigator.pop(context),
+              ),
+              const SizedBox(height: 20),
+              TextButton(
+                onPressed: () {},
+                child: Text(
+                  'إعادة إرسال البريد الإلكتروني',
+                  style: AppTextStyles.bodyMedium.copyWith(
+                    color: AppColors.primary,
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+```
+
+## 2. صفحة المفضلة (favorite.dart)
+
+```dart
+import 'package:flutter/material.dart';
+import '../constants/colors.dart';
+import '../constants/styles.dart';
+import '../widgets/bottom_nav_bar.dart';
+import '../widgets/product_card.dart';
+
+class FavoriteScreen extends StatelessWidget {
+  const FavoriteScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.secondary,
+      appBar: AppBar(
+        title: Text('المفضلة', style: AppTextStyles.header),
+        centerTitle: true,
+        backgroundColor: AppColors.background,
+        elevation: 0,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: GridView.count(
+          crossAxisCount: 2,
+          childAspectRatio: 0.7,
+          crossAxisSpacing: 20,
+          mainAxisSpacing: 20,
+          children: const [
+            ProductCard(
+              name: 'ون تو ثري اقراص',
+              price: '900 ر.ي',
+              imageUrl: 'https://via.placeholder.com/80',
+              isFavorite: true,
+            ),
+            ProductCard(
+              name: 'ارجيفيت كلاسيك متعدد الفينامينات',
+              price: '3,500 ر.ي',
+              imageUrl: 'https://via.placeholder.com/80',
+              isFavorite: true,
+            ),
+            ProductCard(
+              name: 'فيتامين سي 1000 مجم',
+              price: '1,200 ر.ي',
+              imageUrl: 'https://via.placeholder.com/80',
+              isFavorite: true,
+            ),
+            ProductCard(
+              name: 'أوميغا 3 كبسولات',
+              price: '2,300 ر.ي',
+              imageUrl: 'https://via.placeholder.com/80',
+              isFavorite: true,
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: const CustomBottomNavBar(selectedIndex: 1),
+    );
+  }
+}
+```
+
+## 3. صفحة الملف الشخصي (profile.dart)
+
+```dart
+import 'package:flutter/material.dart';
+import '../constants/colors.dart';
+import '../constants/styles.dart';
+import '../widgets/bottom_nav_bar.dart';
+
+class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.secondary,
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            expandedHeight: 200,
+            flexibleSpace: FlexibleSpaceBar(
+              background: Container(
+                color: AppColors.primary,
+                padding: const EdgeInsets.only(top: 50, left: 20, right: 20),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.settings, color: Colors.white),
+                          onPressed: () {},
+                        ),
+                        Text('حسابي', style: AppTextStyles.header),
+                        const SizedBox(width: 48), // للتوازن
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    CircleAvatar(
+                      radius: 40,
+                      backgroundImage: NetworkImage('https://via.placeholder.com/80'),
+                    ),
+                    const SizedBox(height: 10),
+                    Text('أسامة محمد', style: AppTextStyles.subHeader),
+                    Text('example@gmail.com', style: AppTextStyles.bodySmall.copyWith(color: AppColors.textLight)),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate([
+              Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: AppColors.background,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  ),
+                ),
+                child: Column(
+                  children: [
+                    _buildProfileItem(Icons.person_outline, 'إعدادات الحساب'),
+                    const Divider(),
+                    _buildProfileItem(Icons.location_on_outlined, 'قوائم العناوين'),
+                    const Divider(),
+                    _buildProfileItem(Icons.payment, 'الدفع الفوري'),
+                    const Divider(),
+                    _buildProfileItem(Icons.account_balance, 'حساب بنكي'),
+                    const Divider(),
+                    _buildProfileItem(Icons.security, 'أمان الحسابات'),
+                    const Divider(),
+                    _buildProfileItem(Icons.notifications_none, 'الإشعارات'),
+                    const Divider(),
+                    _buildProfileItem(Icons.help_outline, 'المساعدة والدعم'),
+                    const Divider(),
+                    _buildProfileItem(Icons.location_pin, 'الموقع الجغرافي'),
+                    const SizedBox(height: 20),
+                    TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        'تسجيل الخروج',
+                        style: AppTextStyles.bodyMedium.copyWith(
+                          color: AppColors.error,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ]),
+          ),
+        ],
+      ),
+      bottomNavigationBar: const CustomBottomNavBar(selectedIndex: 3),
+    );
+  }
+
+  Widget _buildProfileItem(IconData icon, String title) {
+    return ListTile(
+      leading: Icon(icon, color: AppColors.primary),
+      title: Text(title, style: AppTextStyles.bodyMedium),
+      trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+      onTap: () {},
+    );
+  }
+}
+```
+
+## 4. صفحة التذكيرات (reminder.dart)
+
+```dart
+import 'package:flutter/material.dart';
+import '../constants/colors.dart';
+import '../constants/styles.dart';
+import '../widgets/bottom_nav_bar.dart';
+import '../widgets/custom_button.dart';
+
+class ReminderScreen extends StatelessWidget {
+  const ReminderScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      appBar: AppBar(
+        title: Text('منبه الدواء', style: AppTextStyles.header),
+        centerTitle: true,
+        backgroundColor: AppColors.background,
+        elevation: 0,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _buildTimeOption('اليوم', isSelected: false),
+                _buildTimeOption('الأسبوع', isSelected: true),
+                _buildTimeOption('الشهر', isSelected: false),
+              ],
+            ),
+            const SizedBox(height: 30),
+            Container(
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: AppColors.secondary,
+                borderRadius: BorderRadius.circular(23),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.delete_outline, color: Colors.red),
+                        onPressed: () {},
+                      ),
+                      Text('فيتامين ارجيفيت', style: AppTextStyles.sectionTitle),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  Text('مرات الاسخدام: 1', style: AppTextStyles.bodyMedium),
+                  const SizedBox(height: 5),
+                  Text('موعد النذكير: كل يوم', style: AppTextStyles.bodyMedium),
+                  const SizedBox(height: 5),
+                  Text('الجرعة: كبسولة واحدة', style: AppTextStyles.bodyMedium),
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text('08:00 ص', style: AppTextStyles.bodyLarge),
+                      const SizedBox(width: 10),
+                      const Icon(Icons.access_time, size: 20),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const Spacer(),
+            CustomButton(
+              text: 'إضافة تذكير جديد',
+              onPressed: () => _showAddReminderDialog(context),
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: const CustomBottomNavBar(selectedIndex: 2),
+    );
+  }
+
+  Widget _buildTimeOption(String text, {bool isSelected = false}) {
+    return Container(
+      width: 80,
+      height: 66,
+      decoration: BoxDecoration(
+        color: isSelected ? AppColors.primary : AppColors.secondary,
+        borderRadius: BorderRadius.circular(19),
+      ),
+      child: Center(
+        child: Text(
+          text,
+          style: AppTextStyles.bodyMedium.copyWith(
+            color: isSelected ? Colors.white : Colors.black,
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _showAddReminderDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('إضافة تذكير جديد', style: AppTextStyles.header),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              decoration: InputDecoration(
+                labelText: 'اسم الدواء',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 20),
+            TextField(
+              decoration: InputDecoration(
+                labelText: 'موعد التذكير',
+                border: OutlineInputBorder(),
+                suffixIcon: Icon(Icons.access_time),
+              ),
+            ),
+            const SizedBox(height: 20),
+            TextField(
+              decoration: InputDecoration(
+                labelText: 'الجرعة',
+                border: OutlineInputBorder(),
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text('إلغاء', style: AppTextStyles.bodyMedium),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.primary,
+            ),
+            onPressed: () => Navigator.pop(context),
+            child: Text('حفظ', style: AppTextStyles.button),
+          ),
+        ],
+      ),
+    );
+  }
+}
+```
+
+## 5. مكونات إضافية مطلوبة
+
+### widgets/bottom_nav_bar.dart
+
+```dart
+import 'package:flutter/material.dart';
+import '../constants/colors.dart';
+import '../constants/styles.dart';
+
+class CustomBottomNavBar extends StatelessWidget {
+  final int selectedIndex;
+  
+  const CustomBottomNavBar({
+    super.key,
+    required this.selectedIndex,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomNavigationBar(
+      currentIndex: selectedIndex,
+      type: BottomNavigationBarType.fixed,
+      selectedItemColor: AppColors.primary,
+      unselectedItemColor: AppColors.textGray,
+      selectedLabelStyle: AppTextStyles.bodySmall,
+      unselectedLabelStyle: AppTextStyles.bodySmall,
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home_outlined),
+          activeIcon: Icon(Icons.home),
+          label: 'الرئيسية',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.favorite_outline),
+          activeIcon: Icon(Icons.favorite),
+          label: 'المفضلة',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.notifications_outlined),
+          activeIcon: Icon(Icons.notifications),
+          label: 'التذكيرات',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person_outline),
+          activeIcon: Icon(Icons.person),
+          label: 'حسابي',
+        ),
+      ],
+      onTap: (index) {
+        switch (index) {
+          case 0:
+            Navigator.pushNamed(context, '/home');
+            break;
+          case 1:
+            Navigator.pushNamed(context, '/favorite');
+            break;
+          case 2:
+            Navigator.pushNamed(context, '/reminder');
+            break;
+          case 3:
+            Navigator.pushNamed(context, '/profile');
+            break;
+        }
+      },
+    );
+  }
+}
+```
+
+### widgets/custom_text_field.dart
+
+```dart
+import 'package:flutter/material.dart';
+import '../constants/colors.dart';
+import '../constants/styles.dart';
+
+class CustomTextField extends StatelessWidget {
+  final String hintText;
+  final IconData? prefixIcon;
+  final bool isPassword;
+  final TextInputType? keyboardType;
+
+  const CustomTextField({
+    super.key,
+    required this.hintText,
+    this.prefixIcon,
+    this.isPassword = false,
+    this.keyboardType,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      obscureText: isPassword,
+      keyboardType: keyboardType,
+      decoration: InputDecoration(
+        hintText: hintText,
+        hintStyle: AppTextStyles.bodyMedium.copyWith(color: AppColors.textGray),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(13),
+          borderSide: BorderSide(color: AppColors.borderGray, width: 1),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(13),
+          borderSide: BorderSide(color: AppColors.borderGray, width: 1),
+        ),
+        filled: true,
+        fillColor: Colors.white,
+        prefixIcon: prefixIcon != null ? Icon(prefixIcon) : null,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+      ),
+    );
+  }
+}
+```
+
+### widgets/category_item.dart
+
+```dart
+import 'package:flutter/material.dart';
+import '../constants/colors.dart';
+import '../constants/styles.dart';
+
+class CategoryItem extends StatelessWidget {
+  final IconData icon;
+  final String title;
+
+  const CategoryItem({
+    super.key,
+    required this.icon,
+    required this.title,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          width: 60,
+          height: 60,
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            shape: BoxShape.circle,
+          ),
+          child: Icon(icon, size: 30, color: AppColors.primary),
+        ),
+        const SizedBox(height: 10),
+        Text(title, style: AppTextStyles.bodySmall),
+      ],
+    );
+  }
+}
+```
+
+## ملاحظات نهائية
+
+1. جميع الصفحات الآن متكاملة مع نظام التنقل وتستخدم المكونات المشتركة
+2. تم توحيد الألوان والأنماط عبر التطبيق كله
+3. كل صفحة تحتوي على AppBar خاص بها وزر العودة حيث يحتاج
+4. تم تحسين تجربة المستخدم مع تأثيرات اللمس والتغذية المرئية
+5. يمكنك استبدال الصور المؤقتة (placeholders) بصور حقيقية
+6. تم إضافة تفاعلات أساسية مثل النوافذ المنبثقة والأزرار القابلة للنقر
+
+هذا الكود الكامل جاهز للتنفيذ ويوفر تجربة مستخدم متكاملة لتطبيق الصيدلية الذكية. يمكنك تطويره بإضافة المزيد من الميزات مثل:
+- إدارة الحالة باستخدام Provider أو Bloc
+- تكامل مع API حقيقي
+- إضافة المزيد من الصفحات مثل سلة التسوق وتفاصيل المنتج
+- تحسينات الأداء للقوائم الكبيرة

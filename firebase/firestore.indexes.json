@@ -1,0 +1,22 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "medicines",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {"fieldPath": "keywords", "arrayConfig": "CONTAINS"},
+        {"fieldPath": "price", "order": "ASCENDING"},
+        {"fieldPath": "medicineType", "order": "ASCENDING"}
+      ]
+    },
+    {
+      "collectionGroup": "medicines",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {"fieldPath": "medicineName", "order": "ASCENDING"},
+        {"fieldPath": "Scientific_material", "order": "ASCENDING"}
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}
