@@ -1,22 +1,22 @@
 {
   "project_info": {
-    "project_number": "384224797890",
-    "firebase_url": "https://smart-pharmacy-app-280c7-default-rtdb.firebaseio.com",
-    "project_id": "smart-pharmacy-app-280c7",
-    "storage_bucket": "smart-pharmacy-app-280c7.firebasestorage.app"
+    "project_number": "",
+    "firebase_url": "",
+    "project_id": "",
+    "storage_bucket": ""
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:384224797890:android:bea8452bf433b0f590c75b",
+        "mobilesdk_app_id": "",
         "android_client_info": {
-          "package_name": "com.example.smart_pharmacy_app"
+          "package_name": ""
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyA_6UP7qPe0q7AkicVW8xIEUlbeh8QH0DA"
+          "current_key": ""
         }
       ],
       "services": {
