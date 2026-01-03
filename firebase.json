@@ -3,21 +3,22 @@
     "platforms": {
       "android": {
         "default": {
-          "projectId": "smart-pharmacy-app-280c7",
-          "appId": "1:384224797890:android:bea8452bf433b0f590c75b",
-          "fileOutput": "android/app/google-services.json"
+          "projectId": "",
+          "appId": "",
+          "fileOutput": ""
         }
       },
       "dart": {
         "lib/firebase_options.dart": {
-          "projectId": "smart-pharmacy-app-280c7",
+          "projectId": "",
           "configurations": {
-            "android": "1:384224797890:android:bea8452bf433b0f590c75b",
-            "ios": "1:384224797890:ios:9451e59c38db634690c75b",
-            "web": "1:384224797890:web:bcd1ed7e03388f6290c75b"
+            "android": "",
+            "ios": "",
+            "web": ""
           }
         }
       }
     }
   }
+
 }
